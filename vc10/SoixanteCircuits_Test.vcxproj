@@ -104,9 +104,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\HaarHandDetector.cpp" />
+    <ClCompile Include="..\src\HandDetector.cpp" />
     <ClCompile Include="..\src\SoixanteCircuits_TestApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\HaarHandDetector.h" />
     <ClInclude Include="..\include\HandDetector.h" />
     <ClInclude Include="..\include\Particle.h" />
     <ClInclude Include="..\include\ParticleEngine.h" />

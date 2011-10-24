@@ -15,6 +15,8 @@
  ******************************* INCLUDE SECTION ******************************
  ******************************************************************************/
 #include "CinderOpenCV.h"
+#include "cinder/Rect.h"
+#include <vector>
 
 /******************************************************************************
  *********************************** DEFINE  **********************************
@@ -28,6 +30,15 @@
  ***************************** TYPE DEFINITION ********************************
  ******************************************************************************/
 
+typedef std::vector<ci::Rectf>::iterator	HandsIterator;
+
+enum DetectionType
+{
+	HAAR_STYLE = 0,
+	BLOB_STYLE,
+	FBSEGMENTATION_STYLE
+};
+
 /******************************************************************************
  ****************************** CLASS DEFINITION ******************************
  ******************************************************************************/
@@ -37,10 +48,10 @@
 * 
 * @brief The HandDetector class provides an Interface to detect Closed Hands 
 * on a featured Surface and return their positions and size in this Surface.
-* Several Detection Methods should be available :
-* - Soon available : Viola and Jones algorithm (http://en.wikipedia.org/wiki/Viola%E2%80%93Jones_object_detection_framework) aka Haar-Cascade algorithm.
-* - Soon available : Blob detection algorithm
-* - Soon available : Foreground Segmentation algorithm
+* Several Detection Methods should be available through child classes : 
+* - Soon available : Viola and Jones algorithm (http://en.wikipedia.org/wiki/Viola%E2%80%93Jones_object_detection_framework) aka Haar-Cascade algorithm.	[HaarHandDetector class]
+* - Soon available : Blob detection algorithm																												[BlobHandDetector class]
+* - Soon available : Foreground/Background Segmentation algorithm																							[FGSegmentationHandDetector class]
 *
 * @see
 */
@@ -58,13 +69,35 @@ public:
 	
 	/**
 	* @brief Default Constructor
+	*
+	* @param pType		Detection Type -Haar, -Blob, -FGSegmentation
 	*/
-	HandDetector();
+	HandDetector(DetectionType pType);
 
 	/**
 	* @brief Default Destructor
 	*/
-	~HandDetector();
+	virtual ~HandDetector();
+
+	/**
+	* @brief Main method called every frame to detect Closed Hands.
+	* When detection is successfully processed, the result is stored in the
+	* output vector mClosedHand.
+	*
+	* @param pSurface		Input Cinder Surface featured by the Camera Capture 
+	*		
+	* @return void
+	*/
+	void updateDetection(ci::Surface pSurface);
+
+	/**
+	* @brief Get the detected Hands as an output reference featured in parameter
+	*
+	* @param pDetectedHand		Output parameter to get the vector of detected hands
+	*		
+	* @return void
+	*/
+	void getDetectedHands(std::vector<ci::Rectf>& pOutputDetectedHand);
 
 
 /*******************************************************************************
@@ -74,8 +107,27 @@ protected:
 
 	/******************************* ATTRIBUTES *******************************/
 
+	/**
+	* Type of Detector [-Haar, -Blob, -FGSegmentation]
+	*/
+	DetectionType				mType;
+	
+	/**
+	* Output vector of detected closed hands, stored as Rectangles
+	*/
+	std::vector<ci::Rectf>		mClosedHands;	
+
 	/******************************** METHODS *********************************/
 
+	/**
+	* @brief Pure Virtual method to be updated in child class.
+	* Here must the code be written to process the detection algorithm.
+	*
+	* @param pSurface		Input Cinder Surface featured by the Camera Capture
+	*		
+	* @return void
+	*/
+	void virtual doUpdateDetection(ci::Surface pSurface) = 0;
 
 
 /*******************************************************************************
