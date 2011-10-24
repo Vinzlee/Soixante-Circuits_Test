@@ -18,6 +18,8 @@
 #include "cinder/gl/Texture.h"
 #include "cinder/Capture.h"	
 
+#include "HaarHandDetector.h"
+
 /******************************************************************************
  *********************************** DEFINE  **********************************
  ******************************************************************************/
@@ -112,6 +114,22 @@ private:
 
 	/******************************* ATTRIBUTES *******************************/
 
+	/**
+	* Haar Hand Detector 
+	*/
+	HaarHandDetector*		mHaarHandDetector;
+
+	/**
+	* Camera Device
+	*/
+	Capture					mCapture;
+
+	/**
+	* Input texture grabbed from the Camera Device each frame 
+	*/
+	gl::Texture				mInputTexture;
+
+
 	/******************************** METHODS *********************************/
 
 
@@ -124,21 +142,58 @@ private:
 //-----------------------------------------------------------------------------
 void SoixanteCircuits_Test_Application::prepareSettings( Settings *pSettings )
 {
-
+	//pSettings->setWindowSize(800,600);
 }
 //-----------------------------------------------------------------------------
 void SoixanteCircuits_Test_Application::setup()
 {
+	//Build the Hand Detector
+	mHaarHandDetector = new HaarHandDetector();
+
+	//Start the Capture
+	mCapture = Capture(800, 600);
+	mCapture.start();
 }
 //-----------------------------------------------------------------------------
 void SoixanteCircuits_Test_Application::update()
 {
+	if (mCapture.checkNewFrame())
+	{
+		//Capture the Texture
+		Surface lSurface = mCapture.getSurface();
+		mInputTexture = gl::Texture(lSurface);
+
+		//Update the Detector
+		mHaarHandDetector->updateDetection(lSurface);
+	}
+	
 }
 //-----------------------------------------------------------------------------
 void SoixanteCircuits_Test_Application::draw()
 {
-	// clear out the window with black
-	gl::clear( Color( 0, 0, 0 ) ); 
+	//Exit if no frame has been grabbed from the Camera Device
+	if (!mInputTexture)
+	{
+		return;
+	}
+
+	//Enable Alpha for transparency
+	gl::enableAlphaBlending();
+
+	//draw the Input Camera image
+	gl::color(Color(1,1,1));
+	gl::draw(mInputTexture);
+	mInputTexture.disable();
+
+	//draw the detected closed hands
+	gl::color(ColorA( 0, 0, 1, 0.35f ));
+	vector<Rectf> lDetectedHands;
+	mHaarHandDetector->getDetectedHands(lDetectedHands);
+	for (vector<Rectf>::iterator lIter = lDetectedHands.begin(); lIter != lDetectedHands.end(); lIter++)
+	{
+		gl::drawSolidCircle(lIter->getCenter(), lIter->getWidth() / 2);
+	}
+	
 }
 //-----------------------------------------------------------------------------
 CINDER_APP_BASIC( SoixanteCircuits_Test_Application, RendererGl )
