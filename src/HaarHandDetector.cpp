@@ -5,7 +5,7 @@
  *
  * @file			HaarHandDetector.cpp
  * @author			Vinz
- * @version			1.0
+ * @version			0.1
  * @date			2011/10/24
  */
 
@@ -38,7 +38,7 @@ HaarHandDetector::~HaarHandDetector()
 
 }
 //-----------------------------------------------------------------------------
-void HaarHandDetector::doUpdateDetection(ci::Surface pSurface)
+bool HaarHandDetector::doUpdateDetection(ci::Surface pSurface)
 {
 	//Set a Scale for the image to increase the processing time
 	int lScale = 2;
@@ -58,6 +58,7 @@ void HaarHandDetector::doUpdateDetection(ci::Surface pSurface)
 
 	//Start the Detection 
 	std::vector<cv::Rect> lCVRectangles;
+	int lCount = 0;
 	mClosedHandCascade.detectMultiScale(lSmallGrayScaleImage, lCVRectangles, 1.2f, 2, CV_HAAR_FIND_BIGGEST_OBJECT, cv::Size(24,24));
 
 	for (std::vector<cv::Rect>::iterator lIter = lCVRectangles.begin(); lIter != lCVRectangles.end(); lIter++)
@@ -65,6 +66,19 @@ void HaarHandDetector::doUpdateDetection(ci::Surface pSurface)
 		ci::Rectf lClosedHand(ci::fromOcv(*lIter));
 		lClosedHand *= lScale;
 		mClosedHands.push_back(lClosedHand);
+		lCount++;
 	}
+
+	//Return detection success flag
+	if (lCount > 0)
+	{
+		return true;
+	}
+
+	else
+	{
+		return false;
+	}
+	
 }
 //-----------------------------------------------------------------------------

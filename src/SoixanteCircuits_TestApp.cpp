@@ -19,6 +19,7 @@
 #include "cinder/Capture.h"	
 
 #include "HaarHandDetector.h"
+#include "ParticleEngine.h"
 
 /******************************************************************************
  *********************************** DEFINE  **********************************
@@ -115,6 +116,11 @@ private:
 	/******************************* ATTRIBUTES *******************************/
 
 	/**
+	* Particle Engine 
+	*/
+	ParticleEngine*			mParticleEngine;
+
+	/**
 	* Haar Hand Detector 
 	*/
 	HaarHandDetector*		mHaarHandDetector;
@@ -128,6 +134,41 @@ private:
 	* Input texture grabbed from the Camera Device each frame 
 	*/
 	gl::Texture				mInputTexture;
+
+	/**
+	* Position of the Hand in the 2D screen space 
+	*/
+	ci::Vec2i				mHandPosition;
+
+	/**
+	* Velocity of the Hand in the 2D screen space 
+	*/
+	ci::Vec2i				mHandSpeed;
+
+	/**
+	* Flag to know if a robust Hand signal has been grabbed 
+	*/
+	bool					mIsHandDetected;
+
+	/**
+	* Number of frame Min, an Object is considered as a Detected Hand. 
+	*/
+	int						mDetectionAppearThreshold;
+
+	/**
+	*  Number of frame Max, a detected Object is considered as Lost.
+	*/
+	int						mDetectionDesappearThreshold;
+
+	/**
+	* Number of frame a Hand signal is appearing on screen
+	*/
+	int						mDetectionAppearCount;
+
+	/**
+	* Number of frame a Hand hasn't featured an affirmative appearing signal
+	*/
+	int						mDetectionDesappearCount;
 
 
 	/******************************** METHODS *********************************/
@@ -149,6 +190,10 @@ void SoixanteCircuits_Test_Application::setup()
 {
 	//Build the Hand Detector
 	mHaarHandDetector = new HaarHandDetector();
+	mIsHandDetected = false;
+
+	//Build the Particle Engine
+	mParticleEngine = new ParticleEngine();
 
 	//Start the Capture
 	mCapture = Capture(800, 600);
@@ -164,7 +209,44 @@ void SoixanteCircuits_Test_Application::update()
 		mInputTexture = gl::Texture(lSurface);
 
 		//Update the Detector
-		mHaarHandDetector->updateDetection(lSurface);
+		if (mHaarHandDetector->updateDetection(lSurface))
+		{
+			//Grab the old position
+			Vec2i lOldPosition = mHandPosition;
+
+			//Get the current Position
+			vector<Rectf> lDetectedHands;
+			mHaarHandDetector->getDetectedHands(lDetectedHands);
+			mHandPosition = lDetectedHands[0].getCenter();
+
+			//Is this a new Detection ?
+			if (!mIsHandDetected)
+			{
+				mHandSpeed = Vec2i::zero();
+			}
+			//Or a Continuous one ?
+			else
+			{
+				mHandSpeed = mHandPosition - lOldPosition;
+			}
+			
+
+			mIsHandDetected = true;
+		}
+
+		else
+		{
+			mIsHandDetected = false;
+		}
+
+		//Update the Particle Engine
+		if (mIsHandDetected)
+		{
+			mParticleEngine->addParticle(5, mHandPosition, mHandSpeed);
+		}
+		
+		mParticleEngine->update();
+		
 	}
 	
 }
@@ -181,18 +263,21 @@ void SoixanteCircuits_Test_Application::draw()
 	gl::enableAlphaBlending();
 
 	//draw the Input Camera image
-	gl::color(Color(1,1,1));
+	gl::color(Color(1.0f ,1.0f,1.0f));
 	gl::draw(mInputTexture);
 	mInputTexture.disable();
 
 	//draw the detected closed hands
-	gl::color(ColorA( 0, 0, 1, 0.35f ));
+	gl::color(ColorA( 0, 0, 1.0f, 0.35f ));
 	vector<Rectf> lDetectedHands;
 	mHaarHandDetector->getDetectedHands(lDetectedHands);
 	for (vector<Rectf>::iterator lIter = lDetectedHands.begin(); lIter != lDetectedHands.end(); lIter++)
 	{
 		gl::drawSolidCircle(lIter->getCenter(), lIter->getWidth() / 2);
 	}
+
+	//draw the Particles
+	mParticleEngine->draw();
 	
 }
 //-----------------------------------------------------------------------------

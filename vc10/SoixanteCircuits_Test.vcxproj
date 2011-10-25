@@ -106,6 +106,9 @@
   <ItemGroup>
     <ClCompile Include="..\src\HaarHandDetector.cpp" />
     <ClCompile Include="..\src\HandDetector.cpp" />
+    <ClCompile Include="..\src\Particle.cpp" />
+    <ClCompile Include="..\src\ParticleEngine.cpp" />
+    <ClCompile Include="..\src\SimpleParticle.cpp" />
     <ClCompile Include="..\src\SoixanteCircuits_TestApp.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +117,7 @@
     <ClInclude Include="..\include\Particle.h" />
     <ClInclude Include="..\include\ParticleEngine.h" />
     <ClInclude Include="..\include\Resources.h" />
+    <ClInclude Include="..\include\SimpleParticle.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources.rc" />

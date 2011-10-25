@@ -5,7 +5,7 @@
  *
  * @file			HaarHandDetector.h
  * @author			Vinz
- * @version			1.0
+ * @version			0.1
  * @date			2011/10/24
  */
 
@@ -83,7 +83,7 @@ protected:
 	*		
 	* @return void
 	*/
-	void doUpdateDetection(ci::Surface pSurface);
+	bool doUpdateDetection(ci::Surface pSurface);
 
 
 /*******************************************************************************

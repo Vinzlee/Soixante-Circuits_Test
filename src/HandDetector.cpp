@@ -5,7 +5,7 @@
  *
  * @file			HandDetector.cpp
  * @author			Vinz
- * @version			1.0
+ * @version			0.1
  * @date			2011/10/24
  */
 
@@ -34,9 +34,9 @@ HandDetector::~HandDetector()
 
 }
 //-----------------------------------------------------------------------------
-void HandDetector::updateDetection(ci::Surface pSurface)
+bool HandDetector::updateDetection(ci::Surface pSurface)
 {
-	this->doUpdateDetection(pSurface);
+	return (this->doUpdateDetection(pSurface));
 }
 //-----------------------------------------------------------------------------
 void HandDetector::getDetectedHands(std::vector<ci::Rectf>& pOutputDetectedHand)

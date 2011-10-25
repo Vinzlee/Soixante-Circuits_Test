@@ -49,7 +49,7 @@ enum DetectionType
 * @brief The HandDetector class provides an Interface to detect Closed Hands 
 * on a featured Surface and return their positions and size in this Surface.
 * Several Detection Methods should be available through child classes : 
-* - Soon available : Viola and Jones algorithm (http://en.wikipedia.org/wiki/Viola%E2%80%93Jones_object_detection_framework) aka Haar-Cascade algorithm.	[HaarHandDetector class]
+* - Available :		 Viola and Jones algorithm (http://en.wikipedia.org/wiki/Viola%E2%80%93Jones_object_detection_framework) aka Haar-Cascade algorithm.	[HaarHandDetector class]
 * - Soon available : Blob detection algorithm																												[BlobHandDetector class]
 * - Soon available : Foreground/Background Segmentation algorithm																							[FGSegmentationHandDetector class]
 *
@@ -86,9 +86,9 @@ public:
 	*
 	* @param pSurface		Input Cinder Surface featured by the Camera Capture 
 	*		
-	* @return void
+	* @return bool			Return true if one or several Hands are detected
 	*/
-	void updateDetection(ci::Surface pSurface);
+	bool updateDetection(ci::Surface pSurface);
 
 	/**
 	* @brief Get the detected Hands as an output reference featured in parameter
@@ -125,9 +125,9 @@ protected:
 	*
 	* @param pSurface		Input Cinder Surface featured by the Camera Capture
 	*		
-	* @return void
+	* @return bool			Return true if one or several Hands are detected
 	*/
-	void virtual doUpdateDetection(ci::Surface pSurface) = 0;
+	bool virtual doUpdateDetection(ci::Surface pSurface) = 0;
 
 
 /*******************************************************************************
