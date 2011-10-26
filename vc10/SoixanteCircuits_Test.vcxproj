@@ -107,17 +107,25 @@
     <ClCompile Include="..\src\HaarHandDetector.cpp" />
     <ClCompile Include="..\src\HandDetector.cpp" />
     <ClCompile Include="..\src\Particle.cpp" />
+    <ClCompile Include="..\src\ParticleEmitter.cpp" />
     <ClCompile Include="..\src\ParticleEngine.cpp" />
     <ClCompile Include="..\src\SimpleParticle.cpp" />
     <ClCompile Include="..\src\SoixanteCircuits_TestApp.cpp" />
+    <ClCompile Include="..\src\SparkEmitter.cpp" />
+    <ClCompile Include="..\src\SparkParticle.cpp" />
+    <ClCompile Include="..\src\SpriteParticle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\HaarHandDetector.h" />
     <ClInclude Include="..\include\HandDetector.h" />
     <ClInclude Include="..\include\Particle.h" />
+    <ClInclude Include="..\include\ParticleEmitter.h" />
     <ClInclude Include="..\include\ParticleEngine.h" />
     <ClInclude Include="..\include\Resources.h" />
     <ClInclude Include="..\include\SimpleParticle.h" />
+    <ClInclude Include="..\include\SparkEmitter.h" />
+    <ClInclude Include="..\include\SparkParticle.h" />
+    <ClInclude Include="..\include\SpriteParticle.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources.rc" />

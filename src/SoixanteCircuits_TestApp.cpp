@@ -20,6 +20,7 @@
 
 #include "HaarHandDetector.h"
 #include "ParticleEngine.h"
+#include "SparkEmitter.h"
 
 /******************************************************************************
  *********************************** DEFINE  **********************************
@@ -194,6 +195,9 @@ void SoixanteCircuits_Test_Application::setup()
 
 	//Build the Particle Engine
 	mParticleEngine = new ParticleEngine();
+	SparkEmitter* lEmitter = new SparkEmitter(mParticleEngine);
+	//lEmitter->setParticleType(ParticleType::STAR_PARTICLE);
+	mParticleEngine->addEmitter("Hand", lEmitter);
 
 	//Start the Capture
 	mCapture = Capture(800, 600);
@@ -207,6 +211,7 @@ void SoixanteCircuits_Test_Application::update()
 		//Capture the Texture
 		Surface lSurface = mCapture.getSurface();
 		mInputTexture = gl::Texture(lSurface);
+		float lUpperPunch = 0.0f;
 
 		//Update the Detector
 		if (mHaarHandDetector->updateDetection(lSurface))
@@ -218,6 +223,7 @@ void SoixanteCircuits_Test_Application::update()
 			vector<Rectf> lDetectedHands;
 			mHaarHandDetector->getDetectedHands(lDetectedHands);
 			mHandPosition = lDetectedHands[0].getCenter();
+			lUpperPunch = lDetectedHands[0].getHeight();
 
 			//Is this a new Detection ?
 			if (!mIsHandDetected)
@@ -242,7 +248,11 @@ void SoixanteCircuits_Test_Application::update()
 		//Update the Particle Engine
 		if (mIsHandDetected)
 		{
-			mParticleEngine->addParticle(5, mHandPosition, mHandSpeed);
+			ParticleEmitter* lEmitter = mParticleEngine->getEmitter("Hand");
+			lEmitter->setPosition(mHandPosition);
+			lEmitter->setVelocity(mHandSpeed);
+			lEmitter->setScale(ci::Vec2f(lUpperPunch / 2.0f, lUpperPunch / 2.0f));
+			lEmitter->Emit(150);
 		}
 		
 		mParticleEngine->update();
@@ -273,7 +283,7 @@ void SoixanteCircuits_Test_Application::draw()
 	mHaarHandDetector->getDetectedHands(lDetectedHands);
 	for (vector<Rectf>::iterator lIter = lDetectedHands.begin(); lIter != lDetectedHands.end(); lIter++)
 	{
-		gl::drawSolidCircle(lIter->getCenter(), lIter->getWidth() / 2);
+		//gl::drawSolidCircle(lIter->getCenter(), lIter->getWidth() / 2);
 	}
 
 	//draw the Particles

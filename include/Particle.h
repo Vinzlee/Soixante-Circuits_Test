@@ -28,6 +28,13 @@
  ***************************** TYPE DEFINITION ********************************
  ******************************************************************************/
 
+enum ParticleType
+{
+	DEFAULT_PARTICLE = 0,
+	STAR_PARTICLE,
+	SPARK_PARTICLE
+};
+
 /******************************************************************************
  ****************************** CLASS DEFINITION ******************************
  ******************************************************************************/
@@ -95,6 +102,22 @@ public:
 	void setPosition(const ci::Vec2f& pPosition);
 
 	/**
+	* @brief Get the Angular Position of the Particle
+	*	
+	* @return float
+	*/
+	float getRotation() const;
+
+	/**
+	* @brief Set the angular Position of the Particle
+	*
+	* @param pRotation
+	*		
+	* @return void
+	*/
+	void setRotation(float pRotation);
+
+	/**
 	* @brief Get the Velocity of the Particle in 2D space
 	*		
 	* @return ci::Vec2f
@@ -109,6 +132,22 @@ public:
 	* @return void
 	*/
 	void setVelocity(const ci::Vec2f& pVelocity);
+
+	/**
+	* @brief Get the Rotation Velocity of the Particle in 2D space
+	*		
+	* @return ci::Vec2f
+	*/
+	float getRotationVelocity() const;
+
+	/**
+	* @brief Set the Rotation Velocity of the Particle in 2D space
+	*
+	* @param pVelocity	Velocity input
+	*		
+	* @return void
+	*/
+	void setRotationVelocity(float pRotVel);
 
 	/**
 	* @brief Get the Scale of the Particle
@@ -166,6 +205,11 @@ protected:
 	ci::Vec2f		mLoc;
 
 	/**
+	* Angular Position of the Particle 
+	*/
+	float			mRot;
+
+	/**
 	* Scale Factor cheating about the size of the particle to provide a depth effect
 	*/
 	float			mScale;
@@ -174,6 +218,11 @@ protected:
 	* Velocity of the Particle in the 2D space 
 	*/
 	ci::Vec2f		mVel;
+
+	/**
+	* Angular Speed of the Particle 
+	*/
+	float			mRotVel;
 
 	/**
 	* Age of the particle stated in number of frames 
@@ -197,14 +246,14 @@ protected:
 	*	
 	* @return void
 	*/
-	virtual void doUpdate();
+	virtual void doUpdate() = 0;
 
 	/**
 	* @brief Graphics method to be overridden in child classes
 	*	
 	* @return void
 	*/
-	virtual void doDraw();
+	virtual void doDraw() = 0;
 
 /*******************************************************************************
  ******************************** PRIVATE SECTION ******************************
@@ -212,6 +261,8 @@ protected:
 private:
 
 	/******************************* ATTRIBUTES *******************************/
+
+
 
 	/******************************** METHODS *********************************/
 

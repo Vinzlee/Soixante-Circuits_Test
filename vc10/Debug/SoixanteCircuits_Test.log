@@ -1,17 +1,10 @@
-﻿Build started 25/10/2011 15:04:34.
+﻿Build started 26/10/2011 18:30:20.
      1>Project "C:\Users\user\SoixanteCircuits_Test\vc10\SoixanteCircuits_Test.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\SoixanteCircuits_Test.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\include /I..\..\..\..\Projets\Libraries\Cinder\include /I..\..\..\..\Projets\Libraries\Cinder\boost /I..\..\..\..\Projets\Libraries\Cinder\blocks\opencv\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\src\Particle.cpp ..\src\ParticleEngine.cpp ..\src\SimpleParticle.cpp ..\src\SoixanteCircuits_TestApp.cpp
-         ParticleEngine.cpp
-         Generating Code...
-         Compiling...
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\include /I..\..\..\..\Projets\Libraries\Cinder\include /I..\..\..\..\Projets\Libraries\Cinder\boost /I..\..\..\..\Projets\Libraries\Cinder\blocks\opencv\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\src\SoixanteCircuits_TestApp.cpp
          SoixanteCircuits_TestApp.cpp
-         SimpleParticle.cpp
-     1>c:\users\user\soixantecircuits_test\src\simpleparticle.cpp(51): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-         Particle.cpp
-         Generating Code...
        ResourceCompile:
          All outputs are up-to-date.
        ManifestResourceCompile:
@@ -22,9 +15,13 @@
          Debug\HaarHandDetector.obj
          Debug\HandDetector.obj
          Debug\Particle.obj
+         Debug\ParticleEmitter.obj
          Debug\ParticleEngine.obj
          Debug\SimpleParticle.obj
          Debug\SoixanteCircuits_TestApp.obj
+         Debug\SparkEmitter.obj
+         Debug\SparkParticle.obj
+         Debug\SpriteParticle.obj
        Manifest:
          C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\SoixanteCircuits_Test.exe.embed.manifest" /manifest Debug\SoixanteCircuits_Test.exe.intermediate.manifest
          All outputs are up-to-date.
@@ -38,4 +35,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:17.88
+Time Elapsed 00:00:07.89

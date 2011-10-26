@@ -74,6 +74,16 @@ void Particle::setPosition(const ci::Vec2f& pPosition)
 	mLoc = pPosition;
 }
 //-----------------------------------------------------------------------------
+float Particle::getRotation() const
+{
+	return mRot;
+}
+//-----------------------------------------------------------------------------
+void Particle::setRotation(float pRotation)
+{
+	mRot = pRotation;
+}
+//-----------------------------------------------------------------------------
 ci::Vec2f Particle::getVelocity() const
 {
 	return mVel;
@@ -82,6 +92,16 @@ ci::Vec2f Particle::getVelocity() const
 void Particle::setVelocity(const ci::Vec2f& pVelocity)
 {
 	mVel = pVelocity;
+}
+//-----------------------------------------------------------------------------
+float Particle::getRotationVelocity() const
+{
+	return mRotVel;
+}
+//-----------------------------------------------------------------------------
+void Particle::setRotationVelocity(float pRotVel)
+{
+	mRotVel = pRotVel;
 }
 //-----------------------------------------------------------------------------
 float Particle::getScale() const
@@ -107,16 +127,6 @@ int Particle::getLifespan() const
 bool Particle::isDead()
 {
 	return mIsDead;
-}
-//-----------------------------------------------------------------------------
-void Particle::doUpdate()
-{
-
-}
-//-----------------------------------------------------------------------------
-void Particle::doDraw()
-{
-
 }
 //-----------------------------------------------------------------------------
 

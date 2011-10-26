@@ -19,8 +19,10 @@
 #include "cinder/Perlin.h"
 
 #include <list>
+#include <map>
 
 class Particle;
+class ParticleEmitter;
 
 /******************************************************************************
  *********************************** DEFINE  **********************************
@@ -33,7 +35,8 @@ class Particle;
 /******************************************************************************
  ***************************** TYPE DEFINITION ********************************
  ******************************************************************************/
-typedef std::list<Particle*>::iterator		ParticleIter;
+typedef std::list<Particle*>::iterator							ParticleIter;
+typedef std::map<std::string, ParticleEmitter*>::iterator		ParticleEmitterIter;
 
 /******************************************************************************
  ****************************** CLASS DEFINITION ******************************
@@ -84,16 +87,41 @@ public:
 	void draw();
 
 	/**
-	* @brief Add one or several particles in the 2D space system
+	* @brief Add a particle in the Managed Particles
 	*
-	* @param pNumber	Number of particles to add
-	* @param pLoc		Position of the new particles
-	* @param pVel		Velocity of the new particles
-	* @param pScale		Scale of the new particles
+	* @param pParticle
 	*		
 	* @return void
 	*/
-	void addParticle(int pNumber = 1, const ci::Vec2i& pLoc = ci::Vec2i::zero(), const ci::Vec2f& pVel = ci::Vec2f::zero(), const float pScale = 1.0f);
+	void addParticle(Particle* pParticle);
+
+	/**
+	* @brief Add a new Emitter to the Engine
+	*
+	* @param pID			Name of the Emitter
+	* @param pEmitter		Reference on the Emitter
+	*		
+	* @return void
+	*/
+	void addEmitter(std::string pID, ParticleEmitter* pEmitter);
+
+	/**
+	* @brief Return the "asked by ID" emitter
+	*
+	* @param pID		Name of the Emitter
+	*		
+	* @return ParticleEmitter*
+	*/
+	ParticleEmitter* getEmitter(const std::string& pID);
+
+	/**
+	* @brief Remove the Emitter from the Engine
+	*
+	* @param pID		Name of the Emitter
+	*		
+	* @return void
+	*/
+	void removeEmitter(const std::string& pID);
 
 	/**
 	* @brief Return a reference on the Perlin Kernel
@@ -123,12 +151,17 @@ private:
 	/**
 	* List of Particles created by the Engine 
 	*/
-	std::list<Particle*>	mParticles;
+	std::list<Particle*>						mParticles;
+
+	/**
+	* Map of all Emitters  
+	*/
+	std::map<std::string, ParticleEmitter*>		mEmitters;
 
 	/**
 	* Perlin Kernel generating a Perlin noise signal 
 	*/
-	ci::Perlin				mPerlin;
+	ci::Perlin									mPerlin;
 
 	/******************************** METHODS *********************************/
 
