@@ -74,7 +74,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\include;..\..\..\..\Projets\Libraries\Cinder\include;..\..\..\..\Projets\Libraries\Cinder\boost</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\..\..\..\Projets\Libraries\Cinder\include;..\..\..\..\Projets\Libraries\Cinder\boost;..\..\..\..\Projets\Libraries\Cinder\blocks\opencv\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>
@@ -89,8 +89,8 @@
       <AdditionalIncludeDirectories>..\..\..\..\Projets\Libraries\Cinder\include;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>cinder.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\..\Projets\Libraries\Cinder\lib;..\..\..\..\Projets\Libraries\Cinder\lib\msw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cinder.lib;cv210.lib;cvaux210.lib;cxcore210.lib;ml210.lib;flann.lib;opencv_lapack.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\..\..\Projets\Libraries\Cinder\lib;..\..\..\..\Projets\Libraries\Cinder\lib\msw;..\..\..\..\Projets\Libraries\Cinder\blocks\opencv\lib\vc10;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <GenerateMapFile>true</GenerateMapFile>
       <SubSystem>Windows</SubSystem>

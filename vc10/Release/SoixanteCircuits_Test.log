@@ -1,0 +1,74 @@
+﻿Build started 27/10/2011 20:57:15.
+     1>Project "C:\Users\user\SoixanteCircuits_Test\vc10\SoixanteCircuits_Test.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Touching "Release\SoixanteCircuits_Test.unsuccessfulbuild".
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\include /I..\..\..\..\Projets\Libraries\Cinder\include /I..\..\..\..\Projets\Libraries\Cinder\boost /I..\..\..\..\Projets\Libraries\Cinder\blocks\opencv\include /Zi /nologo /W3 /WX- /O2 /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MT /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\src\StarEmitter.cpp ..\src\FireEmitter.cpp ..\src\FireParticle.cpp ..\src\HaarHandDetector.cpp ..\src\HandDetector.cpp ..\src\Particle.cpp ..\src\ParticleEmitter.cpp ..\src\ParticleEngine.cpp ..\src\SimpleParticle.cpp ..\src\SoixanteCircuits_TestApp.cpp ..\src\SparkEmitter.cpp ..\src\SparkParticle.cpp ..\src\StarParticle.cpp
+         StarEmitter.cpp
+     1>..\src\StarEmitter.cpp(32): warning C4482: nonstandard extension used: enum 'ParticleType' used in qualified name
+         FireEmitter.cpp
+     1>..\src\FireEmitter.cpp(31): warning C4482: nonstandard extension used: enum 'ParticleType' used in qualified name
+     1>C:\Projets\Libraries\Cinder\include\cinder/Vector.h(1285): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+                 ..\src\FireEmitter.cpp(58) : see reference to function template instantiation 'cinder::Vec2<T> cinder::operator *<int,float>(Y,const cinder::Vec2<T> &)' being compiled
+                 with
+                 [
+                     T=int,
+                     Y=float
+                 ]
+     1>C:\Projets\Libraries\Cinder\include\cinder/Vector.h(1285): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+         FireParticle.cpp
+     1>..\src\FireParticle.cpp(56): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+         HaarHandDetector.cpp
+     1>..\src\HaarHandDetector.cpp(29): warning C4482: nonstandard extension used: enum 'DetectionType' used in qualified name
+     1>..\src\HaarHandDetector.cpp(67): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         HandDetector.cpp
+         Particle.cpp
+         ParticleEmitter.cpp
+     1>..\src\ParticleEmitter.cpp(43): warning C4482: nonstandard extension used: enum 'ParticleType' used in qualified name
+     1>..\src\ParticleEmitter.cpp(62): warning C4482: nonstandard extension used: enum 'ParticleType' used in qualified name
+     1>..\src\ParticleEmitter.cpp(65): warning C4482: nonstandard extension used: enum 'ParticleType' used in qualified name
+     1>..\src\ParticleEmitter.cpp(68): warning C4482: nonstandard extension used: enum 'ParticleType' used in qualified name
+     1>..\src\ParticleEmitter.cpp(72): warning C4482: nonstandard extension used: enum 'ParticleType' used in qualified name
+         ParticleEngine.cpp
+         SimpleParticle.cpp
+     1>..\src\SimpleParticle.cpp(52): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+         SoixanteCircuits_TestApp.cpp
+         SparkEmitter.cpp
+     1>..\src\SparkEmitter.cpp(32): warning C4482: nonstandard extension used: enum 'ParticleType' used in qualified name
+         SparkParticle.cpp
+         StarParticle.cpp
+     1>..\src\StarParticle.cpp(55): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\src\StarParticle.cpp(63): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>..\src\StarParticle.cpp(64): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>..\src\StarParticle.cpp(65): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+       ResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /D _UNICODE /D UNICODE /l"0x0409" /I..\..\..\..\Projets\Libraries\Cinder\include /I..\include /nologo /fo"Release\Resources.res" Resources.rc 
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\user\SoixanteCircuits_Test\vc10\Release\SoixanteCircuits_Test.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:..\..\..\..\Projets\Libraries\Cinder\lib /LIBPATH:..\..\..\..\Projets\Libraries\Cinder\lib\msw /LIBPATH:..\..\..\..\Projets\Libraries\Cinder\blocks\opencv\lib\vc10 cinder.lib cv210.lib cvaux210.lib cxcore210.lib ml210.lib flann.lib opencv_lapack.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\SoixanteCircuits_Test.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"C:\Users\user\SoixanteCircuits_Test\vc10\Release\SoixanteCircuits_Test.pdb" /MAP /SUBSYSTEM:WINDOWS /OPT:REF /LTCG /TLBID:1 /DYNAMICBASE:NO /IMPLIB:"C:\Users\user\SoixanteCircuits_Test\vc10\Release\SoixanteCircuits_Test.lib" /MACHINE:X86 Release\Resources.res
+         Release\StarEmitter.obj
+         Release\FireEmitter.obj
+         Release\FireParticle.obj
+         Release\HaarHandDetector.obj
+         Release\HandDetector.obj
+         Release\Particle.obj
+         Release\ParticleEmitter.obj
+         Release\ParticleEngine.obj
+         Release\SimpleParticle.obj
+         Release\SoixanteCircuits_TestApp.obj
+         Release\SparkEmitter.obj
+         Release\SparkParticle.obj
+         Release\StarParticle.obj
+            Creating library C:\Users\user\SoixanteCircuits_Test\vc10\Release\SoixanteCircuits_Test.lib and object C:\Users\user\SoixanteCircuits_Test\vc10\Release\SoixanteCircuits_Test.exp
+         Generating code
+         Finished generating code
+         SoixanteCircuits_Test.vcxproj -> C:\Users\user\SoixanteCircuits_Test\vc10\Release\SoixanteCircuits_Test.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\user\SoixanteCircuits_Test\vc10\Release\SoixanteCircuits_Test.exe;#1" /manifest Release\SoixanteCircuits_Test.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Release\SoixanteCircuits_Test.unsuccessfulbuild".
+         Touching "Release\SoixanteCircuits_Test.lastbuildstate".
+     1>Done Building Project "C:\Users\user\SoixanteCircuits_Test\vc10\SoixanteCircuits_Test.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:55.06
