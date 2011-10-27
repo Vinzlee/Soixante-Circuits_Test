@@ -104,6 +104,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\StarEmitter.cpp" />
+    <ClCompile Include="..\src\FireEmitter.cpp" />
+    <ClCompile Include="..\src\FireParticle.cpp" />
     <ClCompile Include="..\src\HaarHandDetector.cpp" />
     <ClCompile Include="..\src\HandDetector.cpp" />
     <ClCompile Include="..\src\Particle.cpp" />
@@ -113,9 +116,12 @@
     <ClCompile Include="..\src\SoixanteCircuits_TestApp.cpp" />
     <ClCompile Include="..\src\SparkEmitter.cpp" />
     <ClCompile Include="..\src\SparkParticle.cpp" />
-    <ClCompile Include="..\src\SpriteParticle.cpp" />
+    <ClCompile Include="..\src\StarParticle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\StarEmitter.h" />
+    <ClInclude Include="..\include\FireEmitter.h" />
+    <ClInclude Include="..\include\FireParticle.h" />
     <ClInclude Include="..\include\HaarHandDetector.h" />
     <ClInclude Include="..\include\HandDetector.h" />
     <ClInclude Include="..\include\Particle.h" />
@@ -125,7 +131,7 @@
     <ClInclude Include="..\include\SimpleParticle.h" />
     <ClInclude Include="..\include\SparkEmitter.h" />
     <ClInclude Include="..\include\SparkParticle.h" />
-    <ClInclude Include="..\include\SpriteParticle.h" />
+    <ClInclude Include="..\include\StarParticle.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources.rc" />

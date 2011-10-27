@@ -135,15 +135,6 @@ public:
 	ParticleType getParticleType() const;
 
 	/**
-	* @brief Set the Type of Particle to be emitted by the Emitter
-	*
-	* @param pType
-	*		
-	* @return void
-	*/
-	void setParticleType(ParticleType pType);
-
-	/**
 	* @brief Main function emitting a featuring number of Particles
 	*
 	* @param pNum

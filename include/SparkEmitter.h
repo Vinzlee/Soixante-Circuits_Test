@@ -35,7 +35,7 @@
 /**
 * @class SparkEmitter
 * 
-* @brief The SparkEmitter class provides ...
+* @brief The SparkEmitter class provides an Emitter for Spark particle
 *
 * @see
 */

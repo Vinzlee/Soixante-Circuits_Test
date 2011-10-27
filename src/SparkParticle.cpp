@@ -14,7 +14,10 @@
  ******************************* INCLUDE SECTION ******************************
  ******************************************************************************/
 #include "SparkParticle.h"
+#include "cinder/ImageIo.h"
 #include "cinder/app/App.h"
+
+#include "Resources.h"
 /******************************************************************************
  ****************************** NAMESPACE SECTION *****************************
  ******************************************************************************/
@@ -28,14 +31,15 @@ SparkParticle::SparkParticle(ParticleEngine* pEngine)
 	: Particle(pEngine)
 {
 	//Initialize graphics variables
-	mWidth = 1.0f;
-	mLength = 4.0f;
-	mColor = ci::Color(1.0f, 1.0f, 0.0f);
+	mSprite = ci::gl::Texture(ci::loadImage(ci::app::loadResource(RES_SPARK_ID, "IMAGE")));
+	mColor = ci::Color(1.0f,1.0f,1.0f);
+	mInitialSize = mSprite.getSize();
+	mScale = 0.5f;
 
 	//Initialize behavior variables
 	mDecay = ci::Rand::randFloat(0.95f, 0.96f);
 	mShrinkingRatio = 0.0f;
-	mLifespan = ci::Rand::randInt(5, 15);
+	mLifespan = ci::Rand::randInt(5, 10);
 }
 //-----------------------------------------------------------------------------
 SparkParticle::~SparkParticle()
@@ -49,18 +53,10 @@ void SparkParticle::doUpdate()
 	mShrinkingRatio = mAge / (float)mLifespan;
 
 	//Update the Velocity
-	//float lNoise = mEngine->getPerlinKernel().fBm(ci::Vec3f(mLoc * 0.005f, ci::app::getElapsedSeconds() * 0.1f));
-	//float lAngle = lNoise * 15.0f;
-	//ci::Vec2f lNoiseVector =  ci::Vec2f(cos(lAngle), sin(lAngle));
-	//mVel += lNoiseVector * 0.2f * mShrinkingRatio;
 	mVel *= mDecay;
 
 	//Update the Position
 	mLoc += mVel;
-
-	//Update the Size
-	mWidth = 4.0f * (1 - mShrinkingRatio);
-	mLength = 8.0f * (1 - mShrinkingRatio);
 
 	//Update the color
 	mColor = ci::Color(1.0f, 1.0f * (1- mShrinkingRatio), 0.0f );
@@ -70,13 +66,17 @@ void SparkParticle::doDraw()
 {
 	ci::gl::color(mColor);
 
-	//ci::gl::pushMatrices();
+	ci::gl::pushMatrices();
 
-	//ci::gl::rotate(mRot);
+	ci::gl::translate(mLoc);
+	ci::gl::rotate( mRot * 360.0f / 3.1415f + 180.0f);
+	ci::gl::scale((1 - mShrinkingRatio) * mScale, (1 - mShrinkingRatio) * mScale );
 
-	ci::gl::drawSolidRect(ci::Rectf(mLoc.x, mLoc.y, mLoc.x + mWidth, mLoc.y + mLength));
-	//ci::gl::drawSolidCircle(mLoc, mLength);
+	ci::gl::enableAlphaBlending();
+	ci::gl::draw(mSprite);
+	ci::gl::disableAlphaBlending();
 
-	//ci::gl::popMatrices();
+	ci::gl::popMatrices();
+
 }
 //-----------------------------------------------------------------------------

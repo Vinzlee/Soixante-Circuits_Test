@@ -14,13 +14,18 @@
 /******************************************************************************
  ******************************* INCLUDE SECTION ******************************
  ******************************************************************************/
+#include <vector>
+
 #include "cinder/app/AppBasic.h"
 #include "cinder/gl/Texture.h"
 #include "cinder/Capture.h"	
+#include "cinder/params/Params.h"
 
 #include "HaarHandDetector.h"
 #include "ParticleEngine.h"
 #include "SparkEmitter.h"
+#include "StarEmitter.h"
+#include "FireEmitter.h"
 
 /******************************************************************************
  *********************************** DEFINE  **********************************
@@ -127,6 +132,11 @@ private:
 	HaarHandDetector*		mHaarHandDetector;
 
 	/**
+	*  Graphic Interface
+	*/
+	ci::params::InterfaceGl	mGUI;
+
+	/**
 	* Camera Device
 	*/
 	Capture					mCapture;
@@ -171,6 +181,16 @@ private:
 	*/
 	int						mDetectionDesappearCount;
 
+	/**
+	* Particles to render stated as an integer type (see ParticleType in Particle.h) 
+	*/
+	int						mRenderedParticles;
+
+	/**
+	* Debug mode to display the Detected Punches 
+	*/
+	int						mDebugMode;
+
 
 	/******************************** METHODS *********************************/
 
@@ -195,9 +215,31 @@ void SoixanteCircuits_Test_Application::setup()
 
 	//Build the Particle Engine
 	mParticleEngine = new ParticleEngine();
-	SparkEmitter* lEmitter = new SparkEmitter(mParticleEngine);
-	//lEmitter->setParticleType(ParticleType::STAR_PARTICLE);
-	mParticleEngine->addEmitter("Hand", lEmitter);
+	SparkEmitter* lSparkEmitter = new SparkEmitter(mParticleEngine);
+	StarEmitter* lStarEmitter = new StarEmitter(mParticleEngine);
+	FireEmitter* lFireEmitter = new FireEmitter(mParticleEngine);
+	mParticleEngine->addEmitter("Spark", lSparkEmitter);
+	mParticleEngine->addEmitter("Star", lStarEmitter);
+	mParticleEngine->addEmitter("Fire", lFireEmitter);
+
+	//Build the GUI
+	mRenderedParticles = 0;
+	mDebugMode = 0;
+	mGUI = params::InterfaceGl("Parameters", Vec2i(250,50));
+
+	std::vector<std::string> lDebugModeString;
+	lDebugModeString.push_back("Off");
+	lDebugModeString.push_back("On");
+	mGUI.addParam("Debug Mode", lDebugModeString, &mDebugMode, "min=0 max=1");
+
+	std::vector<std::string> lParticles; 
+	//lParticles.push_back("Simple Particles");
+	lParticles.push_back("Spark Particles");
+	lParticles.push_back("Star Particles");
+	lParticles.push_back("Fire Particles");
+	mGUI.addParam("Particle Type", lParticles, &mRenderedParticles, "min=0 max=2");
+
+	
 
 	//Start the Capture
 	mCapture = Capture(800, 600);
@@ -248,15 +290,47 @@ void SoixanteCircuits_Test_Application::update()
 		//Update the Particle Engine
 		if (mIsHandDetected)
 		{
-			ParticleEmitter* lEmitter = mParticleEngine->getEmitter("Hand");
-			lEmitter->setPosition(mHandPosition);
-			lEmitter->setVelocity(mHandSpeed);
-			lEmitter->setScale(ci::Vec2f(lUpperPunch / 2.0f, lUpperPunch / 2.0f));
-			lEmitter->Emit(150);
+			ParticleEmitter* lEmitter;
+
+			switch (mRenderedParticles)
+			{
+
+			case 0:
+				{
+					lEmitter = mParticleEngine->getEmitter("Spark");
+					lEmitter->setPosition(mHandPosition);
+					lEmitter->setVelocity(mHandSpeed);
+					lEmitter->setScale(ci::Vec2f(lUpperPunch / 2.0f, lUpperPunch / 2.0f));
+					lEmitter->Emit(30);
+				}
+				break;
+
+			case 1:
+				{
+					lEmitter = mParticleEngine->getEmitter("Star");
+					lEmitter->setPosition(mHandPosition);
+					lEmitter->setVelocity(mHandSpeed);
+					lEmitter->setScale(ci::Vec2f(lUpperPunch / 2.0f, lUpperPunch / 2.0f));
+					lEmitter->Emit(60);
+				}
+				break;
+
+			case 2:
+				{
+					lEmitter = mParticleEngine->getEmitter("Fire");
+					lEmitter->setPosition(mHandPosition);
+					lEmitter->setVelocity(mHandSpeed);
+					lEmitter->setScale(ci::Vec2f(lUpperPunch / 2.0f, lUpperPunch / 2.0f));
+					lEmitter->Emit(40);
+				}
+				break;
+
+			default:
+				break;
+			}
 		}
 		
 		mParticleEngine->update();
-		
 	}
 	
 }
@@ -283,8 +357,14 @@ void SoixanteCircuits_Test_Application::draw()
 	mHaarHandDetector->getDetectedHands(lDetectedHands);
 	for (vector<Rectf>::iterator lIter = lDetectedHands.begin(); lIter != lDetectedHands.end(); lIter++)
 	{
-		//gl::drawSolidCircle(lIter->getCenter(), lIter->getWidth() / 2);
+		if (mDebugMode)
+		{
+			gl::drawSolidCircle(lIter->getCenter(), lIter->getWidth() / 2);
+		}	
 	}
+
+	//draw the GUI
+	mGUI.draw();
 
 	//draw the Particles
 	mParticleEngine->draw();

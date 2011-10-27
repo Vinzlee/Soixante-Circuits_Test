@@ -30,6 +30,7 @@ SimpleParticle::SimpleParticle(ParticleEngine* pEngine)
 {
 	//Initialize graphics variables
 	mRadius = 4.0f;
+	mInitialSize  = ci::Vec2i(4,4);
 	mColor = ci::Color(1.0f, 1.0f, 1.0f);
 
 	//Initialize behavior variables
@@ -58,7 +59,7 @@ void SimpleParticle::doUpdate()
 	mLoc += mVel;
 
 	//Update the Radius
-	mRadius = 4.0f * (1 - mShrinkingRatio);
+	mRadius = mInitialSize.x * (1 - mShrinkingRatio);
 }
 //-----------------------------------------------------------------------------
 void SimpleParticle::doDraw()

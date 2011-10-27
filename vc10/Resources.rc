@@ -3,3 +3,9 @@
 RES_STAR_ID			IMAGE			"..\\resources\\star.png"
 RES_DIAMOND_ID		IMAGE			"..\\resources\\diamond.png"
 RES_CIRCLE_ID		IMAGE			"..\\resources\\circle.png"
+RES_SPARK_ID		IMAGE			"..\\resources\\spark.png"
+RES_FLARE1_ID		IMAGE			"..\\resources\\Explosion1.png"
+RES_FLARE2_ID		IMAGE			"..\\resources\\Explosion2.png"
+RES_FLARE3_ID		IMAGE			"..\\resources\\Explosion3.png"
+RES_FLARE4_ID		IMAGE			"..\\resources\\Explosion4.png"
+

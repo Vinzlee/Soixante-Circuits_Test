@@ -20,6 +20,7 @@
 
 #include <list>
 #include <map>
+#include <string>
 
 class Particle;
 class ParticleEmitter;

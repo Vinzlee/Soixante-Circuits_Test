@@ -15,8 +15,9 @@
  ******************************************************************************/
 #include "ParticleEmitter.h"
 #include "SimpleParticle.h"
-#include "SpriteParticle.h"
+#include "StarParticle.h"
 #include "SparkParticle.h"
+#include "FireParticle.h"
 
 /******************************************************************************
  ****************************** NAMESPACE SECTION *****************************
@@ -65,7 +66,11 @@ Particle* ParticleEmitter::createParticle()
 		lParticle = new SparkParticle(mEngine);
 		break;
 	case ParticleType::STAR_PARTICLE :
-		lParticle = new SpriteParticle(mEngine);
+		lParticle = new StarParticle(mEngine);
+		break;
+		break;
+	case ParticleType::FIRE_PARTICLE:
+		lParticle = new FireParticle(mEngine);
 		break;
 	default:
 		break;
@@ -117,10 +122,5 @@ void ParticleEmitter::setVelocity(const ci::Vec2f& pVelocity)
 ParticleType ParticleEmitter::getParticleType() const
 {
 	return mParticleType;
-}
-//-----------------------------------------------------------------------------
-void ParticleEmitter::setParticleType(ParticleType pType)
-{
-	mParticleType = pType;
 }
 //-----------------------------------------------------------------------------

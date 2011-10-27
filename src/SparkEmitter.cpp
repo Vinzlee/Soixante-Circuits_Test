@@ -14,6 +14,7 @@
  ******************************* INCLUDE SECTION ******************************
  ******************************************************************************/
 #include "SparkEmitter.h"
+#include "cinder/app/App.h"
 
 /******************************************************************************
  ****************************** NAMESPACE SECTION *****************************
@@ -27,7 +28,7 @@
 SparkEmitter::SparkEmitter(ParticleEngine* pEngine)
 	: ParticleEmitter(pEngine)
 {
-	mConeAngle = 3.1415f / 4.0f;
+	mConeAngle = 3.1415f / 5.0f;
 	mParticleType = ParticleType::SPARK_PARTICLE;
 }
 //-----------------------------------------------------------------------------
@@ -44,17 +45,20 @@ void SparkEmitter::doEmit(int pNum)
 
 	for (int i = 0; i < pNum; i++)
 	{
-		//Evaluate the Cone Direction of the Particle
-		ci::Vec2f lDir = - ci::Vec2f(cos(lAngleCount), sin(lAngleCount));
-		
-		//Evaluate the Position of the Particle
-		ci::Vec2f lLoc = mLoc + lConeRadius * lDir;
-
-		//Evaluate the Speed of the the Particle
-		ci::Vec2f lVel = mVel + ci::Rand::randFloat(10.0f, 20.0f) * lDir;
 
 		//Create the Particle
 		Particle* lParticle = this->createParticle();
+
+		//Evaluate the Cone Direction of the Particle
+		ci::Vec2f lDir = - ci::Vec2f(cos(lAngleCount), sin(lAngleCount));
+
+		//Evaluate the Position of the Particle
+		ci::Vec2f lLoc = mLoc + (lConeRadius + lParticle->getInitialSize().y * lParticle->getScale()) * lDir ;
+
+		//Evaluate the Speed of the the Particle
+		ci::Vec2f lVel = mVel + ci::Rand::randFloat(10.0f, 20.0f) * (lDir);
+
+		//Set the Particle
 		lParticle->setPosition(lLoc);
 		lParticle->setVelocity(lVel);
 		lParticle->setRotation(lAngleCount);

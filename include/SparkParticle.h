@@ -16,6 +16,7 @@
  ******************************************************************************/
 #include "Particle.h"
 #include "cinder/Color.h"
+#include "cinder/gl/Texture.h"
 
 /******************************************************************************
  *********************************** DEFINE  **********************************
@@ -95,15 +96,21 @@ private:
 
 	/******************************* ATTRIBUTES *******************************/
 
+	
 	/**
 	* Length of the Spark 
 	*/
-	float	mLength;
+	//float	mLength;
 
 	/**
 	* Width of the Spark 
 	*/
-	float	mWidth;
+	//float	mWidth;
+
+	/**
+	* Sprite Texture 
+	*/
+	ci::gl::Texture		mSprite;
 
 	/**
 	* Color of the Spark 

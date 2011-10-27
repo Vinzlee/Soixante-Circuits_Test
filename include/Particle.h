@@ -14,8 +14,8 @@
 /******************************************************************************
  ******************************* INCLUDE SECTION ******************************
  ******************************************************************************/
+#include "cinder/Color.h"
 #include "ParticleEngine.h"
-
 /******************************************************************************
  *********************************** DEFINE  **********************************
  ******************************************************************************/
@@ -31,8 +31,9 @@
 enum ParticleType
 {
 	DEFAULT_PARTICLE = 0,
+	SPARK_PARTICLE,
 	STAR_PARTICLE,
-	SPARK_PARTICLE
+	FIRE_PARTICLE
 };
 
 /******************************************************************************
@@ -166,6 +167,29 @@ public:
 	void setScale(const float pScale);
 
 	/**
+	* @brief Return the initial size of the Particle
+	*		
+	* @return ci::Vec2i
+	*/
+	ci::Vec2i getInitialSize() const;
+
+	/**
+	* @brief Return the initial Color of the particle
+	*		
+	* @return ci::Color
+	*/
+	ci::Color getInitialColor() const;
+
+	/**
+	* @brief Set the initial Color of the Particle
+	*
+	* @param pColor
+	*		
+	* @return void
+	*/
+	void setInitialColor(const ci::Color& pColor);
+
+	/**
 	* @brief Get the Age of the particle in number of frames
 	*	
 	* @return int
@@ -178,6 +202,15 @@ public:
 	* @return int
 	*/
 	int getLifespan() const;
+
+	/**
+	* @brief Set the Lifespan of the particle in number of frames
+	*
+	* @param pLifespan
+	*		
+	* @return void
+	*/
+	void setLifespan(const int pLifespan);
 
 	/**
 	* @brief 
@@ -223,6 +256,16 @@ protected:
 	* Angular Speed of the Particle 
 	*/
 	float			mRotVel;
+
+	/**
+	* Initial Size [Width, Length] or [Radius, Radius] stated as a vector of pixels
+	*/
+	ci::Vec2i		mInitialSize;
+
+	/**
+	* Initial Color of the particle 
+	*/
+	ci::Color		mInitialColor;
 
 	/**
 	* Age of the particle stated in number of frames 

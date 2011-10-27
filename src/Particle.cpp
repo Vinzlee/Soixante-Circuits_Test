@@ -31,8 +31,12 @@ Particle::Particle(ParticleEngine* pEngine)
 
 	//Set the spatial variables
 	mLoc = ci::Vec2f::zero();
+	mRot = 0.0f;
 	mVel = ci::Vec2f::zero();
+	mRotVel = 0.0f;
 	mScale = 1.0f;
+	mInitialSize = ci::Vec2i::zero();
+	mInitialColor = ci::Color(1.0f, 1.0f, 1.0f);
 
 	//Set the time variables
 	mAge = 0;
@@ -114,6 +118,21 @@ void Particle::setScale(const float pScale)
 	mScale = pScale;
 }
 //-----------------------------------------------------------------------------
+ci::Vec2i Particle::getInitialSize() const
+{
+	return mInitialSize;
+}
+//-----------------------------------------------------------------------------
+ci::Color Particle::getInitialColor() const
+{
+	return mInitialColor;
+}
+//-----------------------------------------------------------------------------
+void Particle::setInitialColor(const ci::Color& pColor)
+{
+	mInitialColor = pColor;
+}
+//-----------------------------------------------------------------------------
 int Particle::getAge() const
 {
 	return mAge;
@@ -122,6 +141,11 @@ int Particle::getAge() const
 int Particle::getLifespan() const
 {
 	return mLifespan;
+}
+//-----------------------------------------------------------------------------
+void Particle::setLifespan(const int pLifespan)
+{
+	mLifespan = pLifespan;
 }
 //-----------------------------------------------------------------------------
 bool Particle::isDead()
